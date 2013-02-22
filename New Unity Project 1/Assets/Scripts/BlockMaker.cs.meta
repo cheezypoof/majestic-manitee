@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: de7128cc89207694abbf44d23cd1122a
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - staticBlock: {fileID: 11400000, guid: e595a773480fcc748829b71db4cedf9f, type: 2}
+  - dashingBlock: {instanceID: 0}
+  - throwningBlock: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

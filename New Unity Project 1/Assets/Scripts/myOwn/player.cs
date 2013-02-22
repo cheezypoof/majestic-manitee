@@ -70,6 +70,7 @@ public class player : MonoBehaviour {
                 // rigidbody.AddForce(Vector3.up * 300);
                 jumping = true;
                 jumpctrl = Time.deltaTime * jumpVel;
+
                 heightOfJump = transform.position.y + jumpVel / 4.2f;
             }
             else
