@@ -148,7 +148,8 @@ public class KentController : MonoBehaviour {
     }
      void updateRaycasts()
      {
-         if (Physics.Raycast(transform.position,Vector3.left,0.5f))
+         int groundMask = 1 << 8;
+         if (Physics.Raycast(transform.position,Vector3.left,0.5f,groundMask))
          {
              //Debug.Log("ground ray"+transform.position.ToString());
              transform.Translate(new Vector3(0.1f,0f,0f));
@@ -156,7 +157,7 @@ public class KentController : MonoBehaviour {
              jumpNum = 0;
              jumpctrl = 0;
          }
-         if (Physics.Raycast(transform.position, Vector3.right, 0.5f))
+         if (Physics.Raycast(transform.position, Vector3.right, 0.5f,groundMask))
          {
              //Debug.Log("ground ray" + transform.position.ToString());
              transform.Translate(new Vector3(-0.1f, 0f, 0f));
