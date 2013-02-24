@@ -126,6 +126,7 @@ public class KentController : MonoBehaviour {
         rigidbody.useGravity = false;
         rigidbody.AddForce(force, ForceMode.Impulse);
         yield return new WaitForSeconds(0.1f);
+        if(curDir!=CurrentDirection.DOWN)
         rigidbody.velocity = new Vector3(0, 0, 0);
         rigidbody.useGravity = true;
         
