@@ -1,30 +1,46 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
-
 
 
 //handles all block instatiation and logic
 public class BlockMaker:MonoBehaviour{
+    public int numStaticBlocks;
     public OTAnimatingSprite staticBlock;
     public OTSprite dashingBlock;
     public OTSprite throwningBlock;
     private float screenHeight;
     private float screenWidth;
     private float cameraSize;
+    private Stack<OTAnimatingSprite> blockStack;
 
-    void start()
+    public BlockMaker()
+    {
+        blockStack=new Stack<OTAnimatingSprite>();
+    }
+    void Awake()
     {
         screenHeight = Camera.main.pixelHeight;
         screenWidth = Camera.main.pixelWidth;
         cameraSize = Camera.main.orthographicSize;
+        Debug.Log("starting block");
+        blockStack = new Stack<OTAnimatingSprite>();
+        initializeStaticBlocks();
     }
-	
-	
+    void initializeStaticBlocks()
+    {      
+       for (int i = 0; i < numStaticBlocks; i++)
+       {
+        OTAnimatingSprite newBlock = (OTAnimatingSprite)Instantiate(staticBlock, Vector3.up, Quaternion.identity);
+        blockStack.Push(newBlock);
+       }
+    }
+
+
 
     public void spawnBlock(Vector3 position)
     {
-        //instatiate block to nearest position in grid
-       
+        //instatiate block to nearest position in grid      
         Vector3 gridPos = new Vector3(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y),0f);
 
         int groundMask=1<<8;
@@ -32,13 +48,45 @@ public class BlockMaker:MonoBehaviour{
         Collider[] a=Physics.OverlapSphere(gridPos,0.3f,groundMask);
         if (a.Length == 0)
         {
-            OTAnimatingSprite newblock = (OTAnimatingSprite)Instantiate(staticBlock, position, Quaternion.identity);
-            newblock.position = gridPos;
+            //OTAnimatingSprite newblock = (OTAnimatingSprite)Instantiate(staticBlock, position, Quaternion.identity);
+            //newblock.position = gridPos;
+           
+            //instatiate block and start coroutine to make it disappear after n secs.
+            
+                StartCoroutine(sBlockRoutine(gridPos));
+                //blockStack.Pop().position = gridPos;
+            //StartCoroutine(WaitAndPrint());
+            
 
         }
         else
             Debug.Log(a.Length);
 
+    }
+
+    IEnumerator sBlockRoutine(Vector3 pos)
+    {
+        if (blockStack.Count > 0)
+        {
+            OTAnimatingSprite block = blockStack.Pop();
+            block.gameObject.SetActive(true);
+            block.position = pos;
+            yield return new WaitForSeconds(2f);
+            block.gameObject.SetActive(false);
+            blockStack.Push(block);
+        }
+
+    }
+    IEnumerator WaitAndPrint()
+    {
+        yield return new WaitForSeconds(5);
+        print("WaitAndPrint " + Time.time);
+    }
+    IEnumerator Example()
+    {
+        print("Starting " + Time.time);
+        yield return WaitAndPrint();
+        print("Done " + Time.time);
     }
 
     //gives coordinates for objects to be placed

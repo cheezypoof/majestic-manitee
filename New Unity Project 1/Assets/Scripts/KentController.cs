@@ -33,7 +33,7 @@ public class KentController : MonoBehaviour {
         
         //todo set up block snapping grid based on camera size
 
-
+        
         //camera follow player
         OT.view.movementTarget = gameObject;
 	}
