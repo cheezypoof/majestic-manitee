@@ -3,6 +3,7 @@ using System.Collections;
 
 public class KentController : MonoBehaviour {
     public OTAnimatingSprite staticBlock;
+    public OTAnimatingSprite attackBlock;
     public float PlayerSpeed;
     public float doubleJumpVel;
     public float jumpVel;
@@ -14,13 +15,18 @@ public class KentController : MonoBehaviour {
     private int jumpNum;
     private OTSprite sprite;
     public BlockMaker blockMaker;
+    private CurrentDirection curDir;
 
     enum CurrentDirection
     {
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        UPLEFT,
+        UPRIGHT,
+        DOWNLEFT,
+        DOWNRIGHT
     };
   
 	// Use this for initialization
@@ -29,11 +35,7 @@ public class KentController : MonoBehaviour {
         grounded = false;
         sprite = GetComponent<OTSprite>();
         sprite.onCollision = OnCollision;
-        
-        
-        //todo set up block snapping grid based on camera size
-
-        
+        attackBlock.gameObject.SetActive(false);
         //camera follow player
         OT.view.movementTarget = gameObject;
 	}
@@ -87,15 +89,11 @@ public class KentController : MonoBehaviour {
 
        // float amtToJump = Input.GetAxis("Jump") * jumpctrl;
        // rigidbody.AddForce(Vector3.up * jumpctrl * 50,ForceMode.Impulse);
-        
-        float direction = Input.GetAxis("Horizontal");
-        CurrentDirection curDir;
-        if (direction > 0)
-            curDir = CurrentDirection.RIGHT;
-        else if (direction < 0)
-            curDir = CurrentDirection.LEFT;
-        else
-            curDir = CurrentDirection.DOWN;
+        curDir=getCurDirection();
+      
+
+
+
         if (Input.GetKeyDown("z"))
         {
             spawnBlock(curDir);
@@ -105,14 +103,45 @@ public class KentController : MonoBehaviour {
             StartCoroutine(dash(curDir));
            
         }
+        if (Input.GetKeyDown("c"))
+        {
+            attack(curDir);
 
+        }
 
+        float direction = Input.GetAxis("Horizontal");
         float amtToMove =direction* PlayerSpeed * Time.deltaTime;
-        transform.Translate(new Vector3(amtToMove,0f,0f));// amtToJump, 0f));
+        transform.Translate(new Vector3(amtToMove,0f,0f));
+
         updateRaycasts();
        
 
 	}
+
+    CurrentDirection getCurDirection()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if (horizontal > 0 && vertical > 0)
+            curDir = CurrentDirection.UPRIGHT;
+        else if (horizontal < 0 && vertical > 0)
+            curDir = CurrentDirection.UPLEFT;
+        else if (horizontal > 0 && vertical < 0)
+            curDir = CurrentDirection.DOWNRIGHT;
+        else if (horizontal < 0 && vertical < 0)
+            curDir = CurrentDirection.DOWNLEFT;
+        else if (horizontal > 0)
+            curDir = CurrentDirection.RIGHT;
+        else if (horizontal < 0)
+            curDir = CurrentDirection.LEFT;
+        else if (vertical < 0)
+            curDir = CurrentDirection.DOWN;
+        else if (vertical > 0)
+            curDir = CurrentDirection.UP;
+
+        return curDir;
+    }
     IEnumerator dash(CurrentDirection curDir)
     {
         Vector3 force;
@@ -146,6 +175,7 @@ public class KentController : MonoBehaviour {
         }
        
     }
+
      void updateRaycasts()
      {
          int groundMask = 1 << 8;
@@ -167,13 +197,10 @@ public class KentController : MonoBehaviour {
          }
 
      }
+
     void spawnBlock(CurrentDirection direction)
     {
-        
-        float blockPosOffset=1f;
-        
-        float xDir=transform.position.x;
-        float yDir = transform.position.y-blockPosOffset;
+        /*
         if (direction == CurrentDirection.RIGHT)
             xDir = transform.position.x + blockPosOffset;
         else if (direction == CurrentDirection.LEFT)
@@ -182,15 +209,85 @@ public class KentController : MonoBehaviour {
         {
            // yDir = transform.position.y - blockPosOffset;
             rigidbody.velocity = new Vector3(0, 0, 0);
-        }
-        Vector3 blockPos = new Vector3(xDir, yDir,0f);
-        
+        }*/     
+        Vector3 blockPos = dirVector(direction,1);     
         blockMaker.spawnBlock(blockPos);
-        //Vector3 pos=transform.position;
-        //OTAnimatingSprite a=(OTAnimatingSprite)GameObject.Instantiate(staticBlock,blockPos,Quaternion.identity);
-        //a.position=blockPos;
+        
+    }
+    void attack(CurrentDirection direction)
+    {
+        //spawn animated attack block in direction and damage damagable things
+        attackBlock.gameObject.SetActive(true);
+        attackBlock.position = dirVector(direction, 1);
+        attackBlock.onAnimationFrame = trackPosDelegate;
+        attackBlock.Play();
+        attackBlock.onAnimationFinish =attackFinishedDelegate;
+       // attackBlock.gameObject.SetActive(false);
+      
+    }
+    void trackPosDelegate(OTObject obj)
+    {
+        obj.position = dirVector(curDir, 1);
+    }
+    void attackFinishedDelegate(OTObject obj)
+    {
+       obj.gameObject.SetActive(false);
+    }
 
-        //Debug.Log(blockPos.ToString());
+    //gives a vector3 n units away from kent in a direction
+    Vector3 dirVector(CurrentDirection direction, int unit)
+    {
+        /*
+        Vector3 curVec=transform.position;
+        float amtY=transform.position.y;
+        float amtX=transform.position.x;
+        int amtZ=0;
+        if (curDir==CurrentDirection.LEFT)
+            amtX-=unit;
+        else if (curDir==CurrentDirection.RIGHT)
+            amtX+=unit;
+        else if (curDir==CurrentDirection.UP)
+            amtY+=unit;
+        else if (curDir==CurrentDirection.DOWN)
+            amtY-=unit;
+
+        return new Vector3(amtX, amtY, amtZ);*/
+        float xDir = transform.position.x;
+        float yDir = transform.position.y;
+        switch (direction)
+        {
+            case CurrentDirection.UP:
+                yDir += unit;
+                break;
+            case CurrentDirection.DOWN:
+                yDir -= unit;
+                break;
+            case CurrentDirection.LEFT:
+                xDir -= unit;
+                break;
+            case CurrentDirection.RIGHT:
+                xDir += unit;
+                break;
+            case CurrentDirection.UPLEFT:
+                xDir -= unit;
+                yDir += unit;
+                break;
+            case CurrentDirection.UPRIGHT:
+                xDir += unit;
+                yDir += unit;
+                break;
+            case CurrentDirection.DOWNRIGHT:
+                xDir += unit;
+                yDir -= unit;
+                break;
+            case CurrentDirection.DOWNLEFT:
+                xDir -= unit;
+                yDir -= unit;
+                break;
+            default:
+                break;
+        }
+        return new Vector3(xDir, yDir, 0f);
     }
 
     void OnCollision(OTObject owner)

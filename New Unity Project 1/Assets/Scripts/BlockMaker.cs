@@ -77,17 +77,7 @@ public class BlockMaker:MonoBehaviour{
         }
 
     }
-    IEnumerator WaitAndPrint()
-    {
-        yield return new WaitForSeconds(5);
-        print("WaitAndPrint " + Time.time);
-    }
-    IEnumerator Example()
-    {
-        print("Starting " + Time.time);
-        yield return WaitAndPrint();
-        print("Done " + Time.time);
-    }
+    
 
     //gives coordinates for objects to be placed
    /* Vector3 gridPosition(Vector3 position)
