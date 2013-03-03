@@ -26,6 +26,7 @@ public class BlockMaker:MonoBehaviour{
         cameraSize = Camera.main.orthographicSize;
         Debug.Log("starting block");
         blockStack = new Stack<OTAnimatingSprite>();
+        staticBlock.gameObject.SetActive(false);
         initializeStaticBlocks();
         particle_smoke = (ParticleSystem)Instantiate(particle_smoke);
         particle_smoke.Stop();
@@ -35,7 +36,8 @@ public class BlockMaker:MonoBehaviour{
     {      
        for (int i = 0; i < numStaticBlocks; i++)
        {
-        OTAnimatingSprite newBlock = (OTAnimatingSprite)Instantiate(staticBlock, Vector3.up, Quaternion.identity);
+        //OTAnimatingSprite newBlock = (OTAnimatingSprite)Instantiate(staticBlock, Vector3.up, Quaternion.identity);
+        OTAnimatingSprite newBlock = (OTAnimatingSprite)Instantiate(staticBlock);
         blockStack.Push(newBlock);
        }
     }
