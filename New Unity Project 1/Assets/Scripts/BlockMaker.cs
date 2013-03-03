@@ -13,6 +13,7 @@ public class BlockMaker:MonoBehaviour{
     private float screenWidth;
     private float cameraSize;
     private Stack<OTAnimatingSprite> blockStack;
+    public ParticleSystem particle_smoke;
 
     public BlockMaker()
     {
@@ -26,6 +27,9 @@ public class BlockMaker:MonoBehaviour{
         Debug.Log("starting block");
         blockStack = new Stack<OTAnimatingSprite>();
         initializeStaticBlocks();
+        particle_smoke = (ParticleSystem)Instantiate(particle_smoke);
+        particle_smoke.Stop();
+        particle_smoke.Clear();
     }
     void initializeStaticBlocks()
     {      
@@ -69,6 +73,11 @@ public class BlockMaker:MonoBehaviour{
         if (blockStack.Count > 0)
         {
             OTAnimatingSprite block = blockStack.Pop();
+
+            particle_smoke.Play();
+            particle_smoke.transform.position = pos;
+            
+ 
             block.gameObject.SetActive(true);
             block.position = pos;
             yield return new WaitForSeconds(2f);

@@ -35,7 +35,7 @@ public class KentController : MonoBehaviour {
         grounded = false;
         sprite = GetComponent<OTSprite>();
         sprite.onCollision = OnCollision;
-        attackBlock.gameObject.SetActive(false);
+        //attackBlock.gameObject.SetActive(false);
         //camera follow player
         OT.view.movementTarget = gameObject;
 	}
