@@ -35,19 +35,21 @@ public class KentController : MonoBehaviour {
         grounded = false;
         sprite = GetComponent<OTSprite>();
         sprite.onCollision = OnCollision;
-        attackBlock.gameObject.SetActive(false);
+        //attackBlock.gameObject.SetActive(false);
         //camera follow player
         OT.view.movementTarget = gameObject;
+        rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	    //movement
+	
+    void Update()
+    {
+        //movement
         //if (transform.position.y >= MaxHeightOfCurJump){
-       //     jumpctrl = 0;
+        //     jumpctrl = 0;
         //    rigidbody.velocity = new Vector3(0, -9.8f, 0);
-    //}
-      
+        //}
+
         if (Input.GetKeyDown("space"))
         {
             if (!jumping)
@@ -55,12 +57,12 @@ public class KentController : MonoBehaviour {
                 // rigidbody.AddForce(Vector3.up * 300);
                 jumping = true;
                 jumpctrl = 5;
-                    //Time.deltaTime * jumpVel;
+                //Time.deltaTime * jumpVel;
                 jumpNum++;
                 float jumpOffset = 4.2f;
                 rigidbody.velocity = new Vector3(0, 0, 0);
                 rigidbody.AddForce(Vector3.up * jumpVel, ForceMode.Impulse);
-              
+
                 MaxHeightOfCurJump = transform.position.y + maxHeightJump;
             }
             else
@@ -73,7 +75,7 @@ public class KentController : MonoBehaviour {
                     float jumpOffset = 4.2f;
                     //float vely=-1*rigidbody.velocity.y;
                     rigidbody.velocity = new Vector3(0, 0, 0);
-                    rigidbody.AddForce(Vector3.up*jumpVel*2, ForceMode.Impulse);
+                    rigidbody.AddForce(Vector3.up * jumpVel * 2, ForceMode.Impulse);
                     MaxHeightOfCurJump = transform.position.y + maxHeightJump;
                     //OT.view.zoom = 5;
                 }
@@ -83,16 +85,13 @@ public class KentController : MonoBehaviour {
                 }
             }
         }
-       
+
 
         StartCoroutine(jumpSmoothing());
 
-       // float amtToJump = Input.GetAxis("Jump") * jumpctrl;
-       // rigidbody.AddForce(Vector3.up * jumpctrl * 50,ForceMode.Impulse);
-        curDir=getCurDirection();
-      
-
-
+        // float amtToJump = Input.GetAxis("Jump") * jumpctrl;
+        // rigidbody.AddForce(Vector3.up * jumpctrl * 50,ForceMode.Impulse);
+        curDir = getCurDirection();
 
         if (Input.GetKeyDown("z"))
         {
@@ -101,7 +100,7 @@ public class KentController : MonoBehaviour {
         if (Input.GetKeyDown("x"))
         {
             StartCoroutine(dash(curDir));
-           
+
         }
         if (Input.GetKeyDown("c"))
         {
@@ -110,13 +109,12 @@ public class KentController : MonoBehaviour {
         }
 
         float direction = Input.GetAxis("Horizontal");
-        float amtToMove =direction* PlayerSpeed * Time.deltaTime;
-        transform.Translate(new Vector3(amtToMove,0f,0f));
+        float amtToMove = direction * PlayerSpeed * Time.deltaTime;
+        transform.Translate(new Vector3(amtToMove, 0f, 0f));
 
         updateRaycasts();
        
-
-	}
+    }
 
     CurrentDirection getCurDirection()
     {
@@ -183,33 +181,23 @@ public class KentController : MonoBehaviour {
          {
              //Debug.Log("ground ray"+transform.position.ToString());
              transform.Translate(new Vector3(0.1f,0f,0f));
-             jumping = false;
-             jumpNum = 0;
-             jumpctrl = 0;
+             //jumping = false;
+             //jumpNum = 0;
+            // jumpctrl = 0;
          }
          if (Physics.Raycast(transform.position, Vector3.right, 0.5f,groundMask))
          {
              //Debug.Log("ground ray" + transform.position.ToString());
              transform.Translate(new Vector3(-0.1f, 0f, 0f));
-             jumping = false;
-             jumpNum = 0;
-             jumpctrl = 0;
+            // jumping = false;
+             //jumpNum = 0;
+            // jumpctrl = 0;
          }
 
      }
 
     void spawnBlock(CurrentDirection direction)
-    {
-        /*
-        if (direction == CurrentDirection.RIGHT)
-            xDir = transform.position.x + blockPosOffset;
-        else if (direction == CurrentDirection.LEFT)
-            xDir = transform.position.x - blockPosOffset;
-        else if (direction == CurrentDirection.DOWN)
-        {
-           // yDir = transform.position.y - blockPosOffset;
-            rigidbody.velocity = new Vector3(0, 0, 0);
-        }*/     
+    { 
         Vector3 blockPos = dirVector(direction,1);     
         blockMaker.spawnBlock(blockPos);
         
@@ -236,22 +224,7 @@ public class KentController : MonoBehaviour {
 
     //gives a vector3 n units away from kent in a direction
     Vector3 dirVector(CurrentDirection direction, int unit)
-    {
-        /*
-        Vector3 curVec=transform.position;
-        float amtY=transform.position.y;
-        float amtX=transform.position.x;
-        int amtZ=0;
-        if (curDir==CurrentDirection.LEFT)
-            amtX-=unit;
-        else if (curDir==CurrentDirection.RIGHT)
-            amtX+=unit;
-        else if (curDir==CurrentDirection.UP)
-            amtY+=unit;
-        else if (curDir==CurrentDirection.DOWN)
-            amtY-=unit;
-
-        return new Vector3(amtX, amtY, amtZ);*/
+    {    
         float xDir = transform.position.x;
         float yDir = transform.position.y;
         switch (direction)
