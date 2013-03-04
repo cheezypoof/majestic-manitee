@@ -46,6 +46,7 @@ public class BlockMaker:MonoBehaviour{
 
     public void spawnBlock(Vector3 position)
     {
+        print("MOUSE SPAWN");
         //instatiate block to nearest position in grid      
         Vector3 gridPos = new Vector3(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y),0f);
 
