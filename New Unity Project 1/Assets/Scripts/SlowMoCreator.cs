@@ -44,14 +44,13 @@ public class SlowMoCreator : MonoBehaviour
             //Spawn block left of player
             if (initialPos.x > finalPos.x)
             {
-                KentController kc = Player.gameObject.GetComponent<KentController>();
-                kc.spawnBlock(KentController.CurrentDirection.LEFT);
-                /*
+                //KentController kc = Player.gameObject.GetComponent<KentController>();
+                //kc.spawnBlock(KentController.CurrentDirection.LEFT);
+                
                 blockPos = Player.transform.position;
                 blockPos.x -= 1;
-                OTObject thing = (OTObject)Instantiate(Block, blockPos, Quaternion.identity);
-                thing.position = blockPos;
-                 */
+                Instantiate(Block, blockPos, Quaternion.identity);
+                
             }
 
             //Spawn block right of player
@@ -89,5 +88,9 @@ public class SlowMoCreator : MonoBehaviour
             thing.position = mousePos;
         }
          */
+        initialPos.x = 0;
+        initialPos.y = 0;
+        finalPos.x = 0; finalPos.y = 0;
     }
+    
 }
