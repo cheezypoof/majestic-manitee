@@ -17,7 +17,7 @@ public class KentController : MonoBehaviour {
     public BlockMaker blockMaker;
     private CurrentDirection curDir;
 
-    enum CurrentDirection
+    public enum CurrentDirection
     {
         UP,
         DOWN,
@@ -196,7 +196,7 @@ public class KentController : MonoBehaviour {
 
      }
 
-    void spawnBlock(CurrentDirection direction)
+    public void spawnBlock(CurrentDirection direction)
     { 
         Vector3 blockPos = dirVector(direction,1);     
         blockMaker.spawnBlock(blockPos);
