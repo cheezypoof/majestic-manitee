@@ -16,7 +16,7 @@ public class explode : MonoBehaviour {
    
     void OnCollisionEnter(Collision other)
     {
-        print("explode");
+        //print("explode");
         /*Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
         foreach (Collider hit in colliders)

@@ -24,7 +24,7 @@ public class BlockMaker:MonoBehaviour{
         screenHeight = Camera.main.pixelHeight;
         screenWidth = Camera.main.pixelWidth;
         cameraSize = Camera.main.orthographicSize;
-        Debug.Log("starting block");
+        //Debug.Log("starting block");
         blockStack = new Stack<OTAnimatingSprite>();
         staticBlock.gameObject.SetActive(false);
         initializeStaticBlocks();
@@ -65,8 +65,8 @@ public class BlockMaker:MonoBehaviour{
             
 
         }
-        else
-            Debug.Log(a.Length);
+       // else
+           // Debug.Log(a.Length);
 
     }
 
