@@ -16,6 +16,7 @@ public class KentController : MonoBehaviour {
     private OTSprite sprite;
     public BlockMaker blockMaker;
     private CurrentDirection curDir;
+    private OTAnimatingSprite kentanime;
 
     public enum CurrentDirection
     {
@@ -34,6 +35,7 @@ public class KentController : MonoBehaviour {
         jumping = false;
         grounded = false;
         sprite = GetComponent<OTSprite>();
+        kentanime = GetComponent<OTAnimatingSprite>();
         sprite.onCollision = OnCollision;
         //attackBlock.gameObject.SetActive(false);
         //camera follow player
@@ -96,6 +98,7 @@ public class KentController : MonoBehaviour {
         if (Input.GetKeyDown("z"))
         {
             spawnBlock(curDir);
+            kentanime.Play("wrun");
         }
         if (Input.GetKeyDown("x"))
         {
@@ -109,6 +112,7 @@ public class KentController : MonoBehaviour {
         }
 
         float direction = Input.GetAxis("Horizontal");
+        
         float amtToMove = direction * PlayerSpeed * Time.deltaTime;
         transform.Translate(new Vector3(amtToMove, 0f, 0f));
 
