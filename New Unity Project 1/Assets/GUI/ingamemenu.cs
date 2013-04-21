@@ -8,6 +8,7 @@ public class ingamemenu : MonoBehaviour {
     public string messageToDisplayOnClick = "About \n Press Esc to go back";
 
     private string clicked = "";
+    private Rect optionsRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 30, 200, 200);
 
     private void OnGUI()
     {
@@ -46,7 +47,7 @@ public class ingamemenu : MonoBehaviour {
         }
         else if(clicked == "options")
         {
-            GUI.Window(0, new Rect(Screen.width/2 - 100, Screen.height/2 -30, 200, 200), optionsFunc, "Options");
+            GUI.Window(0, optionsRect, optionsFunc, "Options");
         }
         else
         {
@@ -62,6 +63,8 @@ public class ingamemenu : MonoBehaviour {
         {
             clicked = "";
         }
+
+        GUI.DragWindow(new Rect(0, 0, 99999, 99999));
     }
 
     private void Update()
