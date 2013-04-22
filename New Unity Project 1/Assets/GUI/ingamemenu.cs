@@ -10,6 +10,7 @@ public class ingamemenu : MonoBehaviour {
     private string clicked = "";
     private Rect optionsRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 30, 200, 200);
 
+
     private void OnGUI()
     {
         if (background != null)
