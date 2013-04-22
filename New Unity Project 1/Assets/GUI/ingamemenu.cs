@@ -4,7 +4,7 @@ using System.Collections;
 public class ingamemenu : MonoBehaviour {
 
     public GUISkin myskin;
-    public Texture2D background, LOGO;
+    public Texture2D background, LOGO, buttonIMG;
     public string messageToDisplayOnClick = "About \n Press Esc to go back";
 
     private string clicked = "";
