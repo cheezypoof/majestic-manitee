@@ -1,6 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CreateObject.cs">
+    <Files>
+      <File FileName="Assets\Scripts\CreateObject.cs" Line="27" Column="11" />
+      <File FileName="Assets\Scripts\SpawnEnemy.cs" Line="6" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> dce3191eaeb65108a3b85cddb27a2f36b07866f1
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GUI\player_ui.cs">
+    <Files>
+      <File FileName="Assets\GUI\player_ui.cs" Line="36" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> 2d6b798fc80d464397eb6c41409016893915459f
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

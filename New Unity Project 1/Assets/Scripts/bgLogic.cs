@@ -10,11 +10,14 @@ public class bgLogic : MonoBehaviour
     public OTFilledSprite scrollingBG;
     private Vector3 previousTrans;
 
+    public AudioClip bgSound;
+
     // Use this for initialization
     void Start()
     {
         scrollspeed(new Vector2(0f, 0f));
         previousTrans = Vector3.zero;
+        audio.PlayOneShot(bgSound);
     }
 
     // Update is called once per frame
