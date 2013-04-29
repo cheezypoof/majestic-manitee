@@ -2,6 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench />
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CreateObject.cs">
@@ -13,8 +14,11 @@
 >>>>>>> dce3191eaeb65108a3b85cddb27a2f36b07866f1
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GUI\player_ui.cs">
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GUI/ingamemenu.cs">
+>>>>>>> new menu button images
     <Files>
-      <File FileName="Assets\GUI\player_ui.cs" Line="36" Column="3" />
+      <File FileName="Assets/GUI/ingamemenu.cs" Line="36" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
 >>>>>>> 2d6b798fc80d464397eb6c41409016893915459f

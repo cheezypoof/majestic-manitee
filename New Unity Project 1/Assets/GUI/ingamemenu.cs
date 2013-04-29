@@ -4,7 +4,7 @@ using System.Collections;
 public class ingamemenu : MonoBehaviour {
 
     public GUISkin myskin;
-    public Texture2D background, LOGO, buttonIMG;
+    public Texture2D background, LOGO;
     public string messageToDisplayOnClick = "About \n Press Esc to go back";
 
     private string clicked = "";
@@ -25,23 +25,23 @@ public class ingamemenu : MonoBehaviour {
         {
 
             GUI.skin = myskin;
-            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2, 200, 30), "Play"))
+            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2, 200, 30), "", "playstyle"))
             {
                 Application.LoadLevel("haulslevel");
             }
 
-            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 50, 200, 30), "Continue"))
+            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 50, 200, 30), "", "continuestyle"))
             {
 
             }
 
-            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 100, 200, 30), "Options"))
+            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 100, 200, 30), "","optionsstyle"))
             {
                 clicked = "options";
 
             }
 
-            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 150, 200, 30), "Credits"))
+            if (GUI.Button(new Rect((Screen.width / 2) - 100, Screen.height / 2 + 150, 200, 30), "","creditsstyle"))
             {
                 clicked = "about";
             }
