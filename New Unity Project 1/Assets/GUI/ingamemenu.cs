@@ -8,7 +8,8 @@ public class ingamemenu : MonoBehaviour {
     public string messageToDisplayOnClick = "About \n Press Esc to go back";
 
     private string clicked = "";
-    private Rect optionsRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 30, 200, 200);
+    private Rect optionsRect = new Rect(Screen.width / 2 - 250, Screen.height / 2 - 30, 500, 200);
+	
 
 
     private void OnGUI()
@@ -48,7 +49,8 @@ public class ingamemenu : MonoBehaviour {
         }
         else if(clicked == "options")
         {
-            GUI.Window(0, optionsRect, optionsFunc, "Options");
+            GUI.Window(0, optionsRect, optionsFunc, "Penor");
+			///////////////////////////////////////////////////////////////
         }
         else
         {
@@ -58,10 +60,13 @@ public class ingamemenu : MonoBehaviour {
 
     private void optionsFunc(int id)
     {
-        GUILayout.Box("Volume");
+		GUI.skin = myskin;
+        //GUILayout.Box("Volume");
+		GUI.Box(new Rect(250-210/2,30, 210, 30), "Volume");
 
-        if(GUILayout.Button("Back"))
-        {
+        if(GUI.Button(new Rect(250-200/2,70,200,30),"", "backstyle"))
+		//if(GUILayout.Button("","backstyle"))
+		{
             clicked = "";
         }
 
